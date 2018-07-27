@@ -1,4 +1,4 @@
-package com.tyc.bos;
+package com.tyc.bos.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
