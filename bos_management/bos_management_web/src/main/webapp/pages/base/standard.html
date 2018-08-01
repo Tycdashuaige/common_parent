@@ -22,15 +22,15 @@
 				
 				// 收派标准信息表格
 				$('#grid').datagrid( {
-					iconCls : 'icon-forward',
 					fit : true,
 					border : false,
 					rownumbers : true,
 					striped : true,
-					pageList: [30,50,100],
+					pageList: [3,5,10,30],
+					pageSize:5,
 					pagination : true,
 					toolbar : toolbar,
-					url : "../../data/standard.json",
+					url : "../../standardAction_pageQuery.action",
 					idField : 'id',
 					columns : columns
 				});
@@ -43,14 +43,21 @@
 				iconCls : 'icon-add',
 				handler : function(){
 					//alert('增加');
-					window.location.href="../../standard_save";
+					$('#standardWindow').window('open');
 				}
 			}, {
 				id : 'button-edit',
 				text : '修改',
 				iconCls : 'icon-edit',
 				handler : function(){
-					alert('修改');
+					var rows = $("#grid").datagrid("getSelections");
+
+					if(rows.length==1){
+					    $("#standardWindow").window("open");
+					    $("#standardWindow").form("load",rows[0]);
+					}else{
+					    $.messager.alert("提示信息","只能选择一条信息修改","warning");
+					}
 				}
 			},{
 				id : 'button-delete',
@@ -125,15 +132,24 @@
 			<div region="north" style="height:31px;overflow:hidden;" split="false" border="false">
 				<div class="datagrid-toolbar">
 					<a id="save" icon="icon-save" href="#" class="easyui-linkbutton" plain="true">保存</a>
+					<script>
+						$(function () {
+							$('#save').click(function () {
+								if($('#standardForm').form("validate")){
+								    $('#standardForm').submit();
+								}
+                            })
+
+                        })
+
+					</script>
 				</div>
 			</div>
 
 			<div region="center" style="overflow:auto;padding:5px;" border="false">
 				
-				<form>
+				<form id="standardForm" action="../../standardAction_save.action" method="post">
 					<table class="table-edit" width="80%" align="center">
-
-
 						<tr class="title">
 							<td colspan="2">收派标准信息
 								<!--提供隐藏域 装载id -->

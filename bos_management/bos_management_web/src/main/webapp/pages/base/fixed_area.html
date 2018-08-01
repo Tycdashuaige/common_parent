@@ -280,6 +280,14 @@
 			<div style="height:31px;overflow:hidden;" split="false" border="false">
 				<div class="datagrid-toolbar">
 					<a id="save" icon="icon-save" href="#" class="easyui-linkbutton" plain="true">保存</a>
+					<script>
+						$(function () {
+							$("#save").click(function () {
+								if($("#fixedAreaForm").form("validate")){
+                                    $("#fixedAreaForm").submit();
+								}
+                            });
+                        });
 					</script>
 				</div>
 			</div>
@@ -290,11 +298,11 @@
 						<tr class="title">
 							<td colspan="2">定区信息</td>
 						</tr>
-						<tr>
+						<!--<tr>
 							<td>定区编码</td>
 							<td><input type="text" name="id" class="easyui-validatebox"
 								required="true" /></td>
-						</tr>
+						</tr>-->
 						<tr>
 							<td>定区名称</td>
 							<td><input type="text" name="fixedAreaName"
