@@ -1,5 +1,6 @@
 package com.tyc.bos.domain.base;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -36,9 +37,11 @@ public class FixedArea {
 	@Column(name = "C_OPERATING_COMPANY")
 	private String operatingCompany; // 操作单位
 
+	@JSONField(serialize = false)
 	@OneToMany(mappedBy = "fixedArea")
 	private Set<SubArea> subareas = new HashSet<SubArea>(0);
 
+	@JSONField(serialize = false)
 	@ManyToMany
 	@JoinTable(name = "T_FIXEDAREA_COURIER", joinColumns = { @JoinColumn(name = "C_FIXED_AREA_ID", referencedColumnName = "C_ID") }, inverseJoinColumns = { @JoinColumn(name = "C_COURIER_ID", referencedColumnName = "C_ID") })
 	private Set<Courier> couriers = new HashSet<Courier>(0);

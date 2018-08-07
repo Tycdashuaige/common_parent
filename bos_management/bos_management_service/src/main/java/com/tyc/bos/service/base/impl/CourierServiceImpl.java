@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 @Transactional
@@ -50,5 +51,10 @@ public class CourierServiceImpl implements ICourierService {
                 System.out.println("非空操作");
             }
         }
+    }
+
+    @Override
+    public List<Courier> findByDeltagIsNull() {
+        return courierDao.findByDeltagIsNull();
     }
 }

@@ -107,9 +107,9 @@ public class CourierAction extends CommonAction<Courier> {
     }
 
     @Action(value = "courierAction_listajax")
-    public String findAll(){
-
-
+    public String listajax() throws IOException {
+        List<Courier> list = courierService.findByDeltagIsNull();
+        this.list2Json(list);
         return NONE;
     }
 }

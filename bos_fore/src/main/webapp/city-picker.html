@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="js/citypicker/css/city-picker.css">
+<script src="plugins/jquery.min.js"></script>
+<script src="js/citypicker/js/city-picker.data.js"></script>
+<script src="js/citypicker/js/city-picker.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="position: relative;" ><!-- container -->
+    <input readonly type="text" data-toggle="city-picker" placeholder="请选择省/市">
+</div>
+
+<div style="position: relative;"><!-- container -->
+    <input id="input1" readonly type="text" placeholder="请选择省/市"><input id="reset" type="button" value="重置">
+</div>
+<script type="text/javascript">
+    $(function(){
+        $("#input1").citypicker();
+        $("#reset").click(function(){
+            $("#input1").citypicker("reset");
+        });
+    });
+</script>
+
+</body>
+</html>

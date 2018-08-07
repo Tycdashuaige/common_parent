@@ -20,6 +20,7 @@
     <filter-name>Spring OpenEntityManagerInViewFilter</filter-name>
     <url-pattern>*.action</url-pattern>
   </filter-mapping>
+
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:applicationContext.xml</param-value>
@@ -37,6 +38,15 @@
   </filter>
   <filter-mapping>
     <filter-name>struts</filter-name>
-    <url-pattern>/*</url-pattern>
+    <url-pattern>*.action</url-pattern>
   </filter-mapping>
+
+  <servlet>
+    <servlet-name>cxf</servlet-name>
+    <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>cxf</servlet-name>
+    <url-pattern>/ws/*</url-pattern>
+  </servlet-mapping>
 </web-app>

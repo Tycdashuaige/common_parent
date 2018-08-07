@@ -8,4 +8,6 @@ public interface IFixedAreaService {
     void save(FixedArea model);
 
     Page<FixedArea> pageQuery(Pageable pageable);
+
+    void associationCourierToFixedArea(String id, Integer courierId, Integer takeTimeId);
 }

@@ -27,7 +27,7 @@ public class CommonAction<T> extends ActionSupport implements ModelDriven<T> {
         this.rows = rows;
     }
 
-    private T model;
+    protected T model;
 
     public CommonAction() {
 
@@ -57,12 +57,12 @@ public class CommonAction<T> extends ActionSupport implements ModelDriven<T> {
         HttpServletResponse response = ServletActionContext.getResponse();
         response.setContentType("text/json;charset=utf-8");
 
-        response.getWriter().print(JSON.toJSON(map).toString());
+        response.getWriter().print(JSON.toJSON(map));
     }
 
-    public void list2Json(List<T> list) throws IOException {
+    public void list2Json(List list) throws IOException {
         HttpServletResponse response = ServletActionContext.getResponse();
         response.setContentType("text/json;charset=utf-8");
-        response.getWriter().print(JSON.toJSON(list).toString());
+        response.getWriter().print(JSON.toJSON(list));
     }
 }

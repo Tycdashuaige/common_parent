@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:cxf="http://cxf.apache.org/core"
+       xsi:schemaLocation="
+						http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+						http://www.springframework.org/schema/data/jpa
+						http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+						http://cxf.apache.org/core
+						http://cxf.apache.org/schemas/core.xsd
+						http://cxf.apache.org/jaxws
+						http://cxf.apache.org/schemas/jaxws.xsd">
+
+    <!-- 连接池 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.229.128:1521:ORCL"/>
+        <property name="user" value="bosuser"/>
+        <property name="password" value="bosuser"/>
+    </bean>
+    <!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl" value="jdbc:mysql:///test" />
+        <property name="user" value="root" />
+        <property name="password" value="root" />
+    </bean> -->
+
+    <!-- spring整合JPA -->
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 指定扫描的包，存放实体类 -->
+        <property name="packagesToScan" value="com.tyc.bos.domain"/>
+        <!-- 指定持久层提供者为Hibernate -->
+        <property name="persistenceProvider">
+            <bean class="org.hibernate.ejb.HibernatePersistence"/>
+        </property>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <!-- 自动建表 -->
+                <property name="generateDdl" value="true"/>
+                <property name="database" value="ORACLE"/>
+                <property name="databasePlatform" value="org.hibernate.dialect.Oracle10gDialect"/>
+                <property name="showSql" value="true"/>
+            </bean>
+        </property>
+        <property name="jpaDialect">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
+        </property>
+    </bean>
+
+    <!-- 事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <!-- 组件扫描 @Server @Controller @Repository -->
+    <context:component-scan base-package="com.tyc.bos.service,com.tyc.bos.web"/>
+
+    <!-- 事务注解支持 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- Spring 初始化容器时将会扫描 base-package 指定的包目录及其子目录，为继承 Repository 或其子接口的接口创建代理对象，并将代理对象注册为 Spring Bean，业务层便可以通过注解注入的方式来直接使用该对象。
+    <jpa:repositories base-package="cn.itheima.bos.dao" />
+     -->
+    <jpa:repositories base-package="com.tyc.bos.dao"/>
+
+    <jaxws:client id="crmClient" address="http://localhost:8889/crm/cxf/customer?wsdl"
+                  serviceClass="cn.tyc.crm.service.ICustomerService"/>
+
+    <bean id="orderServiceImpl" class="com.tyc.bos.service.take_delivery.impl.OrderServiceImpl"></bean>
+    <jaxws:server address="/order">
+        <jaxws:serviceBean>
+            <ref bean="orderServiceImpl"></ref>
+        </jaxws:serviceBean>
+    </jaxws:server>
+</beans>

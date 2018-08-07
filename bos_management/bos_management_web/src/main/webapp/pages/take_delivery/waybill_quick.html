@@ -153,6 +153,14 @@
 					onAfterEdit : function(rowIndex, rowData, changes){
 						console.info(rowData);
 						editIndex = undefined;
+
+						$.post("../../waybillAction_save.action",rowData,function (data) {
+							if(data == "1"){
+								$.messager.alert("提示信息","保存成功","info");
+							}else {
+							    $.messager.alert("提示信息","保存失败","error")
+							}
+                        })
 					}
 				});
 			});
