@@ -4,6 +4,7 @@ import com.tyc.bos.dao.base.ICourierDao;
 import com.tyc.bos.domain.base.Courier;
 import com.tyc.bos.service.ICourierService;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -31,6 +32,7 @@ public class CourierServiceImpl implements ICourierService {
         return (Page<Courier>) courierDao.findAll(spct,pageable);
     }
 
+    @RequiresPermissions(value = "courier:delete")
     @Override
     public void delete(String ids) {
         if (StringUtils.isNotBlank(ids)) {

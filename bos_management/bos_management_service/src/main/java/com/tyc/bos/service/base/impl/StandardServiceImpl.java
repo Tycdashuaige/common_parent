@@ -3,6 +3,8 @@ package com.tyc.bos.service.base.impl;
 import com.tyc.bos.dao.base.IStandardDao;
 import com.tyc.bos.domain.base.Standard;
 import com.tyc.bos.service.IStandardService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class StandardServiceImpl implements IStandardService {
 
     @Override
     public void save(Standard model) {
+
+        Subject subject = SecurityUtils.getSubject();
+        subject.checkPermission("standard:save");
         standardDao.save(model);
     }
 

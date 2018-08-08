@@ -85,4 +85,46 @@
             <ref bean="orderServiceImpl"></ref>
         </jaxws:serviceBean>
     </jaxws:server>
+
+
+    <!--配置shiro权限控制-->
+
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!--配置安全管理器-->
+        <property name="securityManager" ref="securityManager"></property>
+
+        <!--配置登录页面  登录成功页面  登录失败页面-->
+        <property name="loginUrl" value="/login.html"></property>
+        <property name="successUrl" value="/index.html"></property>
+        <property name="unauthorizedUrl" value="/unauthorized.html"></property>
+
+        <property name="filterChainDefinitions">
+            <value>
+                /css/** = anon
+                /images/** = anon
+                /js/** = anon
+                /validatecode.jsp* = anon
+                /userAction_login.action = anon
+                /**=authc
+            </value>
+        </property>
+    </bean>
+    <!--注册安全管理器-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="bosRealm"></property>
+    </bean>
+
+    <bean id="bosRealm" class="com.tyc.bos.realm.BosRealm"></bean>
+
+    <!--使用注解进行权限控制-->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+        <property name="proxyTargetClass" value="true"></property>
+    </bean>
+
+    <!--定义切面类-->
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"></bean>
+
+    <!--事物注解支持-->
+
+    <tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"></tx:annotation-driven>
 </beans>
