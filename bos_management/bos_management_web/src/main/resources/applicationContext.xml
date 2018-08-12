@@ -22,6 +22,45 @@
 						http://cxf.apache.org/jaxws
 						http://cxf.apache.org/schemas/jaxws.xsd">
 
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:sysconfig.properties</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="config" class="com.tyc.bos.utils.Config">
+        <property name="exportPath">
+            <value>${exportPath}</value>
+        </property>
+        <property name="templateFolder">
+            <value>${templateFolder}</value>
+        </property>
+    </bean>
+
+<!--<bean id="myJob" class="com.tyc.bos.jobs.WorkBillJobs"></bean>
+
+    <bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="myJob"></property>
+        <property name="targetMethod" value="sendMail"></property>
+    </bean>
+
+    <bean id="myTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="jobDetail"></property>
+        <property name="cronExpression">
+            <value>0/60 * * * * ?</value>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="myTrigger"></ref>
+            </list>
+        </property>
+    </bean>-->
+
     <!-- 连接池 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
@@ -69,7 +108,7 @@
     <context:component-scan base-package="com.tyc.bos.service,com.tyc.bos.web"/>
 
     <!-- 事务注解支持 -->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
 
     <!-- Spring 初始化容器时将会扫描 base-package 指定的包目录及其子目录，为继承 Repository 或其子接口的接口创建代理对象，并将代理对象注册为 Spring Bean，业务层便可以通过注解注入的方式来直接使用该对象。
     <jpa:repositories base-package="cn.itheima.bos.dao" />
@@ -112,6 +151,11 @@
     <!--注册安全管理器-->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="bosRealm"></property>
+        <property name="cacheManager" ref="ehCacheManager"></property>
+    </bean>
+
+    <bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"></property>
     </bean>
 
     <bean id="bosRealm" class="com.tyc.bos.realm.BosRealm"></bean>

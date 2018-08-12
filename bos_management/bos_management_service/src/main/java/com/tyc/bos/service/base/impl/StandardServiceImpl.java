@@ -2,7 +2,7 @@ package com.tyc.bos.service.base.impl;
 
 import com.tyc.bos.dao.base.IStandardDao;
 import com.tyc.bos.domain.base.Standard;
-import com.tyc.bos.service.IStandardService;
+import com.tyc.bos.service.base.IStandardService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.data.domain.Page;

@@ -1,7 +1,7 @@
 package com.tyc.bos.web.action.base;
 
 import com.tyc.bos.domain.base.TakeTime;
-import com.tyc.bos.service.ITakeTimeService;
+import com.tyc.bos.service.base.ITakeTimeService;
 import com.tyc.bos.web.action.common.CommonAction;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.List;
 
 @Namespace("/")
 @ParentPackage("struts-default")
@@ -40,5 +41,12 @@ public class PermissionAction extends CommonAction<Permission> {
         return SUCCESS;
     }
 
+    @Action(value = "permissionAction_findAll")
+    public String findAll() throws IOException {
+        List<Permission> permissionList= permissionService.findAll();
+        this.list2Json(permissionList);
+        return NONE;
+
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.tyc.bos.web.action.common;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import org.apache.struts2.ServletActionContext;
@@ -60,9 +61,19 @@ public class CommonAction<T> extends ActionSupport implements ModelDriven<T> {
         response.getWriter().print(JSON.toJSON(map));
     }
 
+
     public void list2Json(List list) throws IOException {
         HttpServletResponse response = ServletActionContext.getResponse();
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().print(JSON.toJSON(list));
+    }
+
+    protected void list2JsonIncludes(List<T> list, String[] includes) throws IOException {
+        SimplePropertyPreFilter simplePropertyPreFilter = new SimplePropertyPreFilter(model.getClass(), includes);
+        String data = JSON.toJSONString(list, simplePropertyPreFilter);
+        System.out.println(data);
+        HttpServletResponse response = ServletActionContext.getResponse();
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().print(data);
     }
 }

@@ -35,7 +35,7 @@
 				};
 				
 				$.ajax({
-					url : '../../data/menu.json',
+					url : '../../menuAction_listajax.action',
 					type : 'POST',
 					dataType : 'text',
 					success : function(data) {
@@ -51,7 +51,16 @@
 				
 				// 点击保存
 				$('#save').click(function(){
-					location.href='role.html';
+					if ($("#roleForm").form("validate")){
+					    var ztreeObj = $.fn.zTree.getZTreeObj("menuTree");
+					    var nodes = ztreeObj.getCheckedNodes(true);
+					    var array = new Array();
+					    for (var i = 0;i<nodes.length;i++){
+                            array.push(nodes[i].id);
+                        }
+                        $("#menuIds").val(array);
+					    $("#roleForm").submit();
+					}
 				});
 			});
 		</script>
@@ -65,6 +74,7 @@
 		</div>
 		<div region="center" style="overflow:auto;padding:5px;" border="false">
 			<form id="roleForm" method="post" action="../../roleAction_save.action">
+                <input id="menuIds" name="menuIds" type="hidden"/>
 				<table class="table-edit" width="80%" align="center">
 					<tr class="title">
 						<td colspan="2">角色信息</td>
@@ -89,10 +99,30 @@
 					</tr>
 					<tr>
 						<td>权限选择</td>
-						<td>
-							<input type="checkbox" name="permissionIds" value="1" /> 添加快递员 
+						<td id="permissionTD">
+
+							<script>
+								$(function () {
+								    var url = "../../permissionAction_findAll.action";
+								    $.post(url,function (data) {
+										if (data != null && data.length>0){
+
+                                            for (var i = 0; i < data.length; i++) {
+                                                var name = data[i].name;
+                                                var id = data[i].id;
+												$("#permissionTD").append
+
+												('<input id="'+id+'" type="checkbox" name="permissionIds" value="'+id+'"/><label for="'+id+'">'+name+'</label>');
+                                            }
+										}
+
+                                    })
+                                });
+							</script>
+
+							<!--<input type="checkbox" name="permissionIds" value="1" /> 添加快递员
 							<input type="checkbox" name="permissionIds" value="2" /> 快递员列表查询
-							<input type="checkbox" name="permissionIds" value="3" /> 添加区域 
+							<input type="checkbox" name="permissionIds" value="3" /> 添加区域 -->
 						</td>
 					</tr>
 					<tr>

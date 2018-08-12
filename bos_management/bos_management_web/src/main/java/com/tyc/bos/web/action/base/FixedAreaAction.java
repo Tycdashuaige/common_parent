@@ -3,7 +3,7 @@ package com.tyc.bos.web.action.base;
 import cn.tyc.crm.domain.Customer;
 import cn.tyc.crm.service.ICustomerService;
 import com.tyc.bos.domain.base.FixedArea;
-import com.tyc.bos.service.IFixedAreaService;
+import com.tyc.bos.service.base.IFixedAreaService;
 import com.tyc.bos.web.action.common.CommonAction;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;

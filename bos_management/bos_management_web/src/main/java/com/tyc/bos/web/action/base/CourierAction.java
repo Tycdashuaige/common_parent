@@ -2,7 +2,7 @@ package com.tyc.bos.web.action.base;
 
 import com.tyc.bos.domain.base.Courier;
 import com.tyc.bos.domain.base.Standard;
-import com.tyc.bos.service.ICourierService;
+import com.tyc.bos.service.base.ICourierService;
 import com.tyc.bos.web.action.common.CommonAction;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
@@ -93,6 +93,7 @@ public class CourierAction extends CommonAction<Courier> {
     }
 
     private static final String FAIL = "fail";
+
 
     @Action(value = "courierAction_delete", results = {@Result(name = "success", location = "/pages/base/courier.html", type = "redirect"),
             @Result(name = "fail", location = "/pages/base/error.html", type = "redirect")})

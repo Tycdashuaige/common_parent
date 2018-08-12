@@ -6,7 +6,7 @@ import com.tyc.bos.dao.base.ITakeTimeDao;
 import com.tyc.bos.domain.base.Courier;
 import com.tyc.bos.domain.base.FixedArea;
 import com.tyc.bos.domain.base.TakeTime;
-import com.tyc.bos.service.IFixedAreaService;
+import com.tyc.bos.service.base.IFixedAreaService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

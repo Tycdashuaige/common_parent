@@ -28,8 +28,13 @@
 			function doDelete(){
 				alert("删除...");
 			}
-			
-			//工具栏
+
+            function doExportPDF(){
+                location.href = "../../areaAction_exportPDF.action";
+            }
+
+
+            //工具栏
 			var toolbar = [ {
 				id : 'button-edit',	
 				text : '修改',
@@ -49,7 +54,12 @@
 				id : 'button-import',
 				text : '导入',
 				iconCls : 'icon-redo'
-			}];
+			}, {
+                    id : 'button-exportPDF',
+                    text : '导出PDF',
+                    iconCls : 'icon-redo',
+                    handler : doExportPDF
+                }];
 			// 定义列
 			var columns = [ [ {
 				field : 'id',

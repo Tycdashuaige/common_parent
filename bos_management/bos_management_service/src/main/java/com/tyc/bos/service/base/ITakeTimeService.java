@@ -1,4 +1,4 @@
-package com.tyc.bos.service;
+package com.tyc.bos.service.base;
 
 import com.tyc.bos.domain.base.TakeTime;
 

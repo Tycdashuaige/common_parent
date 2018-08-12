@@ -28,7 +28,7 @@ public class MenuAction extends CommonAction<Menu> {
 
     @Action("menuAction_listajax")
     public String listajax() throws IOException {
-        List<Menu> list = menuService.findAll();
+        List<Menu> list = menuService.findByParentMenuIsNull();
         this.list2Json(list);
         return NONE;
     }
@@ -48,6 +48,15 @@ public class MenuAction extends CommonAction<Menu> {
         Pageable pageable= new PageRequest(page - 1, rows);
         Page<Menu> menuPage = menuService.pageQuery(pageable);
         this.page2Json(menuPage);
+        return NONE;
+    }
+
+    @Action(value = "menuAction_findMenu")
+    public String findMenu() throws IOException {
+
+        List<Menu> menuList = menuService.findMenu();
+        this.list2Json(menuList);
+        //this.list2JsonIncludes(menuList,new String[]{"page","priority","description","roles","childrenMenus","parentMenu"});
         return NONE;
     }
 }

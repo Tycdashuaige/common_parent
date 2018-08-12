@@ -2,7 +2,7 @@ package com.tyc.bos.service.base.impl;
 
 import com.tyc.bos.dao.base.ITakeTimeDao;
 import com.tyc.bos.domain.base.TakeTime;
-import com.tyc.bos.service.ITakeTimeService;
+import com.tyc.bos.service.base.ITakeTimeService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

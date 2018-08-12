@@ -1,7 +1,7 @@
 package com.tyc.bos.web.action.base;
 
 import com.tyc.bos.domain.base.Standard;
-import com.tyc.bos.service.IStandardService;
+import com.tyc.bos.service.base.IStandardService;
 import com.tyc.bos.web.action.common.CommonAction;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.struts2.convention.annotation.Action;

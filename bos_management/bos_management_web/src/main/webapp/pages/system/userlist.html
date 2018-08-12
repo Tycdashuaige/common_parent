@@ -53,7 +53,7 @@
 				rowspan : 2,
 				align : 'center'
 			}, {
-				field : 'birthday',
+				field : 'myBirthday',
 				title : '生日',
 				width : 120,
 				rowspan : 2,
@@ -87,7 +87,8 @@
 					rownumbers : true,
 					striped : true,
 					toolbar : toolbar,
-					url : "../../data/users.json",
+					url : "../../userAction_pageQuery.action",
+                    pagination:true,
 					idField : 'id', 
 					frozenColumns : frozenColumns,
 					columns : columns,

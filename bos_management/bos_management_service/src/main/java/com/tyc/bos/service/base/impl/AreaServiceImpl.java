@@ -2,7 +2,7 @@ package com.tyc.bos.service.base.impl;
 
 import com.tyc.bos.dao.base.IAreaDao;
 import com.tyc.bos.domain.base.Area;
-import com.tyc.bos.service.IAreaService;
+import com.tyc.bos.service.base.IAreaService;
 import com.tyc.bos.utils.PinYin4jUtils;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;

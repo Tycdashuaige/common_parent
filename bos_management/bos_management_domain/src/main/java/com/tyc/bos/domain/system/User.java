@@ -1,6 +1,7 @@
 package com.tyc.bos.domain.system;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,6 +39,14 @@ public class User {
 			@JoinColumn(name = "C_USER_ID", referencedColumnName = "C_ID") }, inverseJoinColumns = {
 					@JoinColumn(name = "C_ROLE_ID", referencedColumnName = "C_ID") })
 	private Set<Role> roles = new HashSet<Role>(0);
+
+	public String getMyBirthday(){
+
+		if (birthday == null){
+			return "";
+		}
+		return new SimpleDateFormat("yyyy-MM-dd").format(birthday);
+	}
 
 	public int getId() {
 		return id;

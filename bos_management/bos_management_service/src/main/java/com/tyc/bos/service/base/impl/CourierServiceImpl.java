@@ -2,7 +2,7 @@ package com.tyc.bos.service.base.impl;
 
 import com.tyc.bos.dao.base.ICourierDao;
 import com.tyc.bos.domain.base.Courier;
-import com.tyc.bos.service.ICourierService;
+import com.tyc.bos.service.base.ICourierService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.data.domain.Page;

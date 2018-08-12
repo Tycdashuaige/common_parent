@@ -40,6 +40,14 @@ public class Menu {
 	@JoinColumn(name = "C_PID")
 	private Menu parentMenu;
 
+	public Integer getpId() {
+		if(parentMenu == null){
+			return 0;
+		}
+		return parentMenu.getId();
+	}
+
+
 	public String getText(){
 		return name;
 	}

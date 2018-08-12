@@ -31,15 +31,61 @@
 			function doSearch(){
 				$('#searchWindow').window("open");
 			}
-			
-			//导出按钮绑定的事件
+
+            function subAreaDownLoadTemplate(){
+                location.href = "../../subareaAction_downLoadTemplate.action";
+            }
+
+
+            //导出按钮绑定的事件
 			function doExport(){
-				
+				window.location.href="../../subareaAction_exportXls.action";
 			}
 			
 			function doImport(){
 				alert("导入");
 			}
+
+            function doImport(){
+                alert("导入");
+            }
+
+            function showPie(){
+                //1.弹出饼图窗口
+                $('#pieWindow').window("open");
+                var url ="../../subareaAction_showPie.action";
+                $.post(url,{},function(mydata){
+                    $('#pieWindow').highcharts({
+                        title : {
+                            text : '分区分布图'
+                        },
+                        tooltip: {
+                            headerFormat: '{series.name}<br>',
+                            pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                    style: {
+                                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                    }
+                                }
+                            }
+                        },
+                        series : [ {
+                            type : 'pie',
+                            name : '分区分布图',
+                            data : mydata
+                        } ]
+                    });
+                })
+
+            }
+
 			
 			//工具栏
 			var toolbar = [ {
@@ -63,6 +109,11 @@
 				iconCls : 'icon-cancel',
 				handler : doDelete
 			},{
+                id : 'button-export',
+                text : '模板下载',
+                iconCls : 'icon-undo',
+                handler : subAreaDownLoadTemplate
+            },{
 				id : 'button-import',
 				text : '导入',
 				iconCls : 'icon-redo',
@@ -72,7 +123,12 @@
 				text : '导出',
 				iconCls : 'icon-undo',
 				handler : doExport
-			}];
+			}, {
+                id : 'button-show-pie',
+                text : '分区分布图',
+                iconCls : 'icon-redo',
+                handler : showPie
+            }];
 			// 定义列
 			var columns = [ [ {
 				field : 'id',
@@ -195,7 +251,18 @@
 			        height: 400,
 			        resizable:false
 			    });
-				$("#btn").click(function(){
+
+                $('#pieWindow').window({
+                    title : '分区分布图',
+                    width : 500,
+                    modal : true,
+                    shadow : true,
+                    closed : true,
+                    height : 450,
+                    resizable : false
+                });
+
+                $("#btn").click(function(){
 					alert("执行查询...");
 				});
 			});
@@ -337,6 +404,10 @@
 				</form>
 			</div>
 		</div>
+
+		<div class="easyui-window" title="分区分布图窗口" id="pieWindow" collapsible="false" minimizable="false" maximizable="false" style="top:20px;left:200px">
+		</div>
+
 	</body>
 
 </html>
