@@ -10,6 +10,6 @@ public interface IMenuDao extends JpaRepository<Menu,Integer> {
 
     List<Menu> findByParentMenuIsNull();
 
-    @Query("select m from Menu m inner join m.roles r inner join r.users u where u.id = ?1 and m.parentMenu= null")
+    @Query("select m from Menu m inner join m.roles r inner join r.users u where u.id = ?1")
     List<Menu> findByUserId(int id);
 }

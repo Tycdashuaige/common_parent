@@ -3,6 +3,7 @@ package com.tyc.bos.domain.system;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "T_ROLE")
-public class Role {
+public class Role implements Serializable {
 	@Id
 	@GeneratedValue
 	@Column(name = "C_ID")

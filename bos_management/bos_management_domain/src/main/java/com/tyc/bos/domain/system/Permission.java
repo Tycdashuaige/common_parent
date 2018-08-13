@@ -1,6 +1,7 @@
 package com.tyc.bos.domain.system;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,7 +10,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "T_PERMISSION")
-public class Permission {
+public class Permission implements Serializable {
 
 	@Id
 	@GeneratedValue

@@ -1,6 +1,7 @@
 package com.tyc.bos.domain.system;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -11,7 +12,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "T_USER")
-public class User {
+public class User implements Serializable {
 
 	@Id
 	@GeneratedValue
